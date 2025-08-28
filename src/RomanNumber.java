@@ -4,7 +4,7 @@ import java.util.Map;
 public class RomanNumber {
     private static final Map<Character, Integer> ROMAN_VALUES = new HashMap<>();
     private static final String[] ROMAN_SYMBOLS = {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
-    private static final int[] ARABIC_VALUES = {100, 90, 50, 40, 10, 9, 5, 4, 1};
+    private static final int[] ARABIC_VALUES = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
 
     static {
         ROMAN_VALUES.put('I', 1);
@@ -35,7 +35,12 @@ public class RomanNumber {
             }
 
             int currentValue = ROMAN_VALUES.get(currentChar);
-            result += (currentValue < prevValue) ? -currentValue : currentValue;
+
+            if (currentValue < prevValue) {
+                result -= currentValue;
+            } else {
+                result += currentValue;
+            }
             prevValue = currentValue;
         }
 
@@ -43,7 +48,7 @@ public class RomanNumber {
     }
 
     public static String toRoman(int arabic) {
-        // необязательно, но защита от тупого
+        // необязательно, но защита от тупого 111111111
         if (arabic < 1) {
             throw new IllegalArgumentException("Римские числа не могут быть меньше I (1)");
         }
@@ -51,7 +56,6 @@ public class RomanNumber {
         if (arabic > 3999) {
             throw new IllegalArgumentException("Римские числа не могут быть больше MMMCMXCIX (3999)");
         }
-
         StringBuilder roman = new StringBuilder();
 
         for (int i = 0; i < ARABIC_VALUES.length; i++) {

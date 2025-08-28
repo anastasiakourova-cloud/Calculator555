@@ -3,8 +3,9 @@ import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 public class CalculatorService {
-    private static final Pattern EXPRESSION_PATTERN =
-            Pattern.compile("^(\\d+|[IVXLCDM]+)([+\\-*/])(\\d+|[IVXLCDM]+)$");
+    public static final Pattern EXPRESSION_PATTERN =
+            Pattern.compile("^(\\d+|[IVXLC]+)([+\\-*/])(\\d+|[IVXLC]+)$");
+
     private static final int MIN_VALUE = 1;
     private static final int MAX_VALUE = 10;
 
